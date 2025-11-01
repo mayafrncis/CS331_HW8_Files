@@ -1,0 +1,2 @@
+Hi!
+This is the text to be copied from the source to the destination
