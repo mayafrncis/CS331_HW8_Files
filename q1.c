@@ -15,6 +15,7 @@ int main() {
 	printf("Enter destination file path: ");
 	scanf("%256s", dest);
 
+	errno = 0;
 	int fds, fdd;
 	errno = 0;
 	char c[10];
@@ -29,7 +30,7 @@ int main() {
 	int len;
 	buf = c;
 	while ((retr = read(fds, buf, 8)) > 0) { // keeps going until EOF or reading fails
- 		int written = 0; // how many we've written
+ 		int written = 0; // how many we've written total
 		while (retr > written) { // checks if we have bytes that were read to still write then starts writing from where we last left off in the buffer and writes however many bytes were read
 			retw = write(fdd, buf + written, retr - written);
 			if (retw == -1) {
