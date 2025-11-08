@@ -8,12 +8,12 @@
 #include <unistd.h>
 
 int main() {
-	char source[256];
-	char dest[256];
+	char source[4000];
+	char dest[4000];
 	printf("Enter source file path: ");
 	scanf("%256s", source);
 	printf("Enter destination file path: ");
-	scanf("%256s", dest);
+	scanf("%4000s", dest);
 
 	errno = 0;
 	int fds, fdd;

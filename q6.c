@@ -30,7 +30,12 @@ int main() {
 
 	while(line<3) {
 		ret = read(fd, buf, 1);
-		if (ret == -1) perror("read");
+		if (ret == -1) {
+                        if (errno == EINTR) continue;
+                        perror("read");
+                        break;
+                }
+
 		b++;
 		if (buf[0] == '\n')
 			line++;
@@ -44,7 +49,7 @@ int main() {
 	int len = 15;
 	while ((ret = read(fd, buf2, len)) != 0) {
 		if (ret == -1) {
-			if (errno = EINTR) continue;
+			if (errno == EINTR) continue;
 			perror("read");
 			break;
 		}

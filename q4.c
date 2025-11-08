@@ -23,18 +23,19 @@ int main() {
 			perror("read");
 		}
 		if (ret == 0) break; // via ctrl d
-		if (buf[n] == '\n') break;
 		n++;
+		if (buf[n-1] == '\n') break;
 	}
 
 	char text[15];
-	snprintf(text, 15, "PID=%d", getpid());
-	write(fd, text, strlen(text));
-	write(fd, buf, n);
-	if (buf[n-1] != '\n')
-		write(fd,"\n", 1);
-	int pos = lseek(fd, 0, SEEK_CUR);
-	printf("Current new file position: %d\n", pos);
+	snprintf(text, 15, "PID=%d: ", getpid());
+	ssize_t ret;
+	if ((ret = write(fd, text, strlen(text))) == -1) perror("write");
+	if ((ret = write(fd, buf, n)) == -1) perror("write");
+	if (n==0 || buf[n-1] != '\n')
+		if ((ret == write(fd,"\n", 1)) == -1) perror("write");
+	off_t pos = lseek(fd, 0, SEEK_CUR);
+	printf("Current new file position: %ld\n", pos);
 	// Opening a file with O_APPEND means anything written will immediately be added to the end of the file, regardless of where the offset is
 	// so even if we move arround the offset with SEEK_SET, O_APPEND ignores it and writes at the end of the file anyway
 	// Whenever we write a number of bytes, the offset increases exactly by that number of bytes, regardless of where the offset is currently
