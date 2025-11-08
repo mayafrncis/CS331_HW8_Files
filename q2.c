@@ -25,7 +25,7 @@ int main() {
 		perror("close");
 
 	fd = open ("data.txt", O_RDWR);
-	int size = lseek(fd, 0, SEEK_END);
+	off_t size = lseek(fd, 0, SEEK_END);
 	printf("Current size: %d\n", size);
 
 	ret = ftruncate(fd, 10);
