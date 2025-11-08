@@ -39,7 +39,7 @@ int main() {
 	off_t ret1 = lseek(fd, 0, SEEK_SET);
 	if (ret1 == -1)
 		perror("lseek");
-	char c[12];
+	char c[10];
 	int len = 10;
 	ssize_t ret2;
 	char *buf2;

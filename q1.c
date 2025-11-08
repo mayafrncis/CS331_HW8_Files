@@ -18,7 +18,7 @@ int main() {
 	errno = 0;
 	int fds, fdd;
 	errno = 0;
-	char c[10];
+	char c[8];
 	fds = open(source, O_RDONLY);
 	fdd = open(dest, O_WRONLY|O_CREAT|O_TRUNC);
 	if (fds == -1 || fdd == -1) {
